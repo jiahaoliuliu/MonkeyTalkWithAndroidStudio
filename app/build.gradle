@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'android-aspectj'
 
 android {
     compileSdkVersion 21
@@ -16,10 +17,16 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+
+        monkeytalk.initWith(buildTypes.debug)
+        monkeytalk {
+            applicationIdSuffix ".monkey"
+        }
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
+    monkeytalkCompile fileTree(dir: 'monkey-libs', include: ['*.jar'])
 }
